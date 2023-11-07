@@ -187,5 +187,11 @@ const quizData = [
   submitButton.addEventListener('click', checkAnswer);
   retryButton.addEventListener('click', retryQuiz);
   showAnswerButton.addEventListener('click', showAnswer);
+
+  submitButton.style.display = 'none';
+  if(document.getElementById('pdf').value != ''){
+    submitButton.style.display = 'inline-block';
+    displayQuestion();
+  }
+
   
-  displayQuestion();
