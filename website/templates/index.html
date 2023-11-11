@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz App</h1>
+    <form action="/" method="post" enctype="multipart/form-data" class="UpForm" id = "UpForm">
+      <label for="pdf" class="UpLabel">Upload Your PDF File Here </label>
+      <input id="pdf" type="file" accept=".pdf" class="defaultButton" name="file"/>
+      <br><label id="pdf-label" for="pdf">Choose File</label>
+      <br><label for="questionCount">Number of Questions: </label>
+      <br><input type="range" id="questionCount" name="questionCount" min="1" max="10" value="5" oninput="updateSliderValue()">
+      <span id="sliderValue">5</span>
+      <br>
+      <button class="UpButton" id="upload">Upload</button>
+    </form>
+    <div id="quiz">
+      {%if data%}
+      <form action="/" method="post" enctype="multipart/form-data" class="options">
+        <label class="question">{{data['question']}}</label>
+
+        {%for option in data['options']%}
+        <label class = "option">
+        <input type="radio" name = "quiz-option" value="{{ option }}">{{option}}
+        </label>
+        {%endfor%}
+
+        <button id="check" class="button">Check</button>
+        {%endif%}
+      </form>
+    </div>
+    <div id="result" class="result">
+      {%if myScore%}
+
+      <h2>Your score is: {{ myScore }}</h2>
+      <p>Your wrong answers:</p>
+      <hr>
+      {%for answer in incorrect_answers%}
+        <p>The question: {{answer['question']}}</p>
+        <p>Your answer: {{answer['your_answer']}}</p>
+        <p>Correct answer: {{answer['correct_answer']}}</p>
+        <hr>
+      {%endfor%}
+      {%endif%}
+    </div>
+  </div>
+  <script type="text/javascript">
+    {%if data or myScore%}
+    const container = document.getElementById("UpForm")
+    container.style.display = 'none'
+    {%endif%}
+
+    function updateSliderValue(){
+      document.getElementById('sliderValue').innerHTML = document.getElementById('questionCount').value;
+    }
+  </script>
+</body>
+</html>
