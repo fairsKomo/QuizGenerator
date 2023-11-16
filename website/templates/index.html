@@ -7,7 +7,7 @@
 <body>
   <div class="container">
     <h1>Quiz App</h1>
-    <form action="/" method="post" enctype="multipart/form-data" class="UpForm" id = "UpForm">
+    <form action="/" method="post" enctype="multipart/form-data" class="UpForm" id = "UpForm" onsubmit="return validateForm()">
       <label for="pdf" class="UpLabel">Upload Your PDF File Here </label>
       <input id="pdf" type="file" accept=".pdf" class="defaultButton" name="file"/>
       <br><label id="pdf-label" for="pdf">Choose File</label>
@@ -55,6 +55,15 @@
 
     function updateSliderValue(){
       document.getElementById('sliderValue').innerHTML = document.getElementById('questionCount').value;
+    }
+
+    function validateForm(){
+      const file = document.getElementById('pdf')
+      if(file.value === ''){
+        alert("Please upload a File !")
+        return false
+      }
+      return true
     }
   </script>
 </body>
