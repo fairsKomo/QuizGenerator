@@ -4,29 +4,6 @@ import json
 
 view = Blueprint('view', __name__)
 
-test = [{"id": 2,
-                "question": "who is the king of football in 2012?",
-                "options": [
-                    "Cristiano Ronaldo",
-                    "Malek Moath",
-                    "Faris Alshumrani",
-                    "Lionel Messi"
-                ],
-                "correct_answer": "Lionel Messi"
-            },
-            {"id": 3,
-                "question": "How many people in the earth?",
-                "options": [
-                    "7.888 billions",
-                    "2 billions",
-                    "3 billions",
-                    "15 billions"
-                ],
-                "correct_answer": "7.888 billions"
-            }
-
-            ]
-
 @view.route('/')
 def upload_pdf():
     return render_template('index.html')
