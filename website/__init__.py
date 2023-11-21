@@ -1,4 +1,9 @@
 from flask import Flask
+from rq import Queue
+from redis import Redis
+
+r = Redis()
+q = Queue(connection=r)
 
 def create_app():
     app = Flask(__name__)
