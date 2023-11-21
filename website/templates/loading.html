@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Loading...</title>
+    <!-- Add any necessary styles here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Loading...</h1>
+    <p>Please wait while we generate the quiz questions.</p>
+    <script type="text/javascript">
+        function checkTaskStatus() {
+            // Make an Ajax request to check the task status
+            const job_id = "{{ job_id }}";  // Replace with the actual job_id from the template
+            fetch(`/check_task/${job_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "finished") {
+                        // Redirect to the results page
+                        window.location.href = `/check_task/${job_id}`;
+                    } else if (data.status === "failed") {
+                        // Handle failed job (optional)
+                        console.error("Task failed:", data.error);
+                        // Optionally display an error message to the user
+                        // You might want to redirect the user to an error page
+                        document.body.innerHTML = `<h1>Error</h1><p>${data.error}</p>`;
+                    }
+                    // If the task is still in progress, do nothing
+                })
+                .catch(error => {
+                    console.error("Error checking task status:", error);
+                    // Optionally display an error message to the user
+                    document.body.innerHTML = `<h1>Error</h1><p>${error.message}</p>`;
+                });
+        }
+
+        // Periodically check the task status
+        setInterval(checkTaskStatus, 1000);
+    </script>
+</body>
+</html>

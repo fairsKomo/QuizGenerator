@@ -65,6 +65,22 @@
       }
       return true
     }
+
+    function checkTaskStatus() {
+        const job_id = "{{ job_id }}";
+        fetch(`/check_task/${job_id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "finished") {
+                    window.location.href = `/check_task/${job_id}`;
+                } else if (data.status === "failed") {
+                    console.error("Task failed:", data.error);
+                }
+            })
+            .catch(error => console.error("Error checking task status:", error));
+    }
+
+    setInterval(checkTaskStatus, 1000);
   </script>
 </body>
 </html>
