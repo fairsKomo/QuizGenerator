@@ -1,5 +1,5 @@
 from rq import get_current_job
-from website import generatingQuestions
+import generatingQuestions
 
 def generate_questions(text, questions_count):
     job = get_current_job()
