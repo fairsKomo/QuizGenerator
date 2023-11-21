@@ -2,7 +2,7 @@ from flask import render_template, Blueprint, request, session, redirect, url_fo
 from rq import Queue, get_current_job
 from redis import Redis
 from tasks import generate_questions
-from website import generatingQuestions
+import generatingQuestions
 
 view = Blueprint('view', __name__)
 
