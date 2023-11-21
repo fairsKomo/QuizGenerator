@@ -46,7 +46,7 @@ prettytable==3.8.0
 pycparser==2.21
 pydantic==2.4.2
 pydantic_core==2.10.1
-pyinstaller==4.9
+pyinstaller==5.13.2
 pyinstaller-hooks-contrib==2022.2
 PyPDF2==3.0.1
 pyperclip==1.8.2
