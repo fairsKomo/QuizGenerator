@@ -15,9 +15,17 @@ def upload_file():
       if 'file' in request.files:
         f = request.files['file']
         questionsCount = request.form.get('questionCount')
-
+        type = request.form.get('questionType')
         text = generatingQuestions.loadPdf(f)
-        gptR = generatingQuestions.get_response(text, questionsCount)["questions"]
+        if type == "MCQ":
+          gptR = generatingQuestions.get_response(text, questionsCount)["questions"]
+        elif type == "TF":
+          gptR = generatingQuestions.get_response_tf(text, questionsCount)["questions"]
+        elif type == "Mix":
+          gptR = generatingQuestions.get_response_mix(text, questionsCount)["questions"]
+        else:
+          gptR = generatingQuestions.get_response(text, questionsCount)["questions"]
+
         session['gptR'] = gptR
         session['currentQuestion'] = 0
         session['score'] = 0

@@ -49,9 +49,57 @@ def get_response(text,num = 5):
     prompt = f"""
         Make yourself proffesional in creating question based on
         text that is delimitted with four hashtags, I need you to
+        generate {num} MCQ questions.
+        Your response must be in json format. Each question contains
+        id, question, 4 options as a list and the correct answer.
+        This is template of how it should be formatted: {TEMPLATE}
+        
+        the text is: ````{text}````
+    """
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role":"system",
+                "content":prompt,
+            }
+        ],
+    )
+    return json.loads(response["choices"][0]["message"]["content"])
+
+def get_response_tf(text,num = 5):
+    prompt = f"""
+        Make yourself proffesional in creating question based on
+        text that is delimitted with four hashtags, I need you to
+        generate {num} True or False questions.
+        Your response must be in json format. Each question contains
+        id, question, 2 options True or False as a list and the correct answer.
+        This is template of how it should be formatted: {TEMPLATE}
+        
+        the text is: ````{text}````
+    """
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role":"system",
+                "content":prompt,
+            }
+        ],
+    )
+    return json.loads(response["choices"][0]["message"]["content"])
+
+def get_response_mix(text,num = 5):
+    prompt = f"""
+        Make yourself proffesional in creating question based on
+        text that is delimitted with four hashtags, I need you to
         generate {num} MCQ and True or False questions.
         Your response must be in json format. Each question contains
         id, question, 4 options if it is MCQ or 2 options if it is True or False as a list and the correct answer.
+        Please make sure that half of the questions will be MCQ and the Other half is True or False, forexample
+        if there`s 4 questions 2 will be MCQ and 2 will be True or False
         This is template of how it should be formatted: {TEMPLATE}
         
         the text is: ````{text}````

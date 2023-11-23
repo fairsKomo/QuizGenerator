@@ -15,6 +15,18 @@
       <br><input type="range" id="questionCount" name="questionCount" min="1" max="10" value="5" oninput="updateSliderValue()">
       <span id="sliderValue">5</span>
       <br>
+      <br><label for="questionType">Questions Type: </label>
+      <br>
+      <label>
+        <input type="radio" name="questionType" value="MCQ" checked> MCQ
+      </label>
+      <label>
+        <input type="radio" name="questionType" value="TF">T/F
+      </label>
+      <label>
+        <input type="radio" name="questionType" value="Mix"> MCQ & T/F
+      </label>
+      <br>
       <button class="UpButton" id="upload">Upload</button>
     </form>
     <div id="quiz">
